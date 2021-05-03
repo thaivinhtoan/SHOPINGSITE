@@ -1,3 +1,5 @@
+from importlib import import_module
+from django.conf import settings
 from unittest import skip
 from django.test import TestCase
 from django.http import HttpRequest
@@ -5,7 +7,7 @@ from django.contrib.auth.models import User
 from store.models import Category, Product
 from django.test import Client, RequestFactory, TestCase
 from django.urls import reverse
-from store.views import all_products
+from store.views import product_all
 
 # @skip('demonstrating skipping')
 # class TestSkip(TestCase):
@@ -45,16 +47,16 @@ class TestViewResponses(TestCase):
 
     def test_homepage_html(self):
         request = HttpRequest()
-        response = all_products(request)
+        engine = import_module(settings.SESSION_ENGINE)
+        request.session = engine.SessionStore()
+        response = product_all(request)
         html = response.content.decode('utf-8')
-        self.assertIn('<title>Home</title>', html)
+        self.assertIn('<title>Book Store</title>', html)
         self.assertTrue(html.startswith('\n<!DOCTYPE html>\n'))
         self.assertEqual(response.status_code, 200)
 
-    def test_view_function(self):
-        request = self.factory.get('/item/django-beginners')
-        response = all_products(request)
-        html = response.content.decode('utf-8')
-        self.assertIn('<title>Home</title>', html)
-        self.assertTrue(html.startswith('\n<!DOCTYPE html>\n'))
+    def test_url_allowed_hosts(self):
+        response = self.c.get('/', HTTP_HOST='haha.com')
+        self.assertEqual(response.status_code, 200)
+        response = self.c.get('/', HTTP_HOST='yourdomain.com')
         self.assertEqual(response.status_code, 200)

@@ -10,7 +10,7 @@
 
 ## Running this project
 
-To get this project up and running you should start by having Python installed on your computer. It's advised you create a virtual environment to store your projects dependencies separately. You can install virtualenv with
+To get this project up and running you should start by having Python installed on your computer. It's advised you create a virtual environment to store your projects dependencies separately. You can install `virtualenv` with
 
 ```
 pip install virtualenv
@@ -22,7 +22,7 @@ Clone or download this repository and open it in your editor of choice. In a `wi
 py -m venv venv
 ```
 
-That will create a new folder `env` in your project directory. Next activate it with this command on `WINDOWS`:
+That will created a new folder `venv` in your project directory. Next activate it with this command on `WINDOWS`:
 
 ```
 .\venv\Scripts\activate
@@ -58,3 +58,11 @@ coverage html
 ```
 
 Folder `html` will be created, copy `path` and check this on browser file `.html`
+
+# Session
+
+```
+from django.contrib.sessions.models import Session
+s = Session.objects.get(pk='rfxige4v583rsb1nudrp4n64n6w07gwa')
+s.get_decoded()
+```
