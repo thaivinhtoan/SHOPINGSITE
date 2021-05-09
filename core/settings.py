@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store',
     'basket',
+    'account',
+    'payment',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +87,10 @@ DATABASES = {
     }
 }
 
+# Custom User model
+AUTH_USER_MODEL = 'account.UserBase'
+LOGIN_REDIRECT_URL = '/account/dashboard'
+LOGIN_URL = '/account/login'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -122,6 +129,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -129,3 +139,14 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+STRIPE_ENDPOINT_SECRET = 'whsec_aVRInJl51xJk4PLN4ksfV1AXTCKArRQP'
+
+BASKET_SESSION_ID = 'basket'
+
+# Stripe Payment
+PUBLISHABLE_KEY = 'pk_test_51Iol8qCmTDZ03UhzZ13MU2ddnrIzYTIoHB71XfsveyglDaTv5jQ4TO3TUzNQzKI0Er4uAuIRPv3Y6sZmwHvUsJsK00tvRkrSwl'
+SECRET_KEY = 'sk_test_51Iol8qCmTDZ03Uhzn5mWvKYunDRj8z3kIJcVQPocwJ0576KrEcfj2nE0tOgVQSRu7PDkXg9KCdMgB7GBbl1yDNxv0075rHzz5f'
+STRIPE_ENDPOINT_SECRET = 'whsec_aVRInJl51xJk4PLN4ksfV1AXTCKArRQP'

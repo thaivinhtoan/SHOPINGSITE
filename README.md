@@ -1,13 +1,5 @@
 # ECOMMERCE WEBSITE
 
-- Getting started with Django
-- Models & Admin
-- Testing --> Models (optional)
-- URL's, Views
-- Templates --> Bootstrap
-- Testing --> Views (optional)
-- PEP 8 - Python Style Conventions
-
 ## Running this project
 
 To get this project up and running you should start by having Python installed on your computer. It's advised you create a virtual environment to store your projects dependencies separately. You can install `virtualenv` with
@@ -65,4 +57,24 @@ Folder `html` will be created, copy `path` and check this on browser file `.html
 from django.contrib.sessions.models import Session
 s = Session.objects.get(pk='rfxige4v583rsb1nudrp4n64n6w07gwa')
 s.get_decoded()
+```
+
+# CREATE REQUIREMENTS
+
+```
+pip freeze > requirements.txt
+```
+
+# STRIPE
+
+Auth: 4000 0025 0000 3155
+
+1. Download the latest windows tar.gz file from https://github.com/stripe/stripe-cli/releases/latest
+2. Unzip the stripe_X.X.X_windows_x86_64.zip file
+3. Run the unzipped .exe file
+
+```
+.\stripe.exe login
+
+.\stripe.exe listen
 ```
