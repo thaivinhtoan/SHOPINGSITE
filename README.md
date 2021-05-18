@@ -67,8 +67,6 @@ pip freeze > requirements.txt
 
 # STRIPE
 
-Auth: 4000 0025 0000 3155
-
 1. Download the latest windows tar.gz file from https://github.com/stripe/stripe-cli/releases/latest
 2. Unzip the stripe_X.X.X_windows_x86_64.zip file
 3. Run the unzipped .exe file

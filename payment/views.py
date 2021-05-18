@@ -1,14 +1,14 @@
-import json
-
-import stripe
-from django.contrib.auth.decorators import login_required
-from django.http.response import HttpResponse
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic.base import TemplateView
-
-from basket.basket import Basket
 from orders.views import payment_confirmation
+from basket.basket import Basket
+from django.views.generic.base import TemplateView
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from django.http.response import HttpResponse
+from django.contrib.auth.decorators import login_required
+import stripe
+import json
+import os
+from django.conf import settings
 
 
 def order_placed(request):
@@ -29,14 +29,15 @@ def BasketView(request):
     total = total.replace('.', '')
     total = int(total)
 
-    stripe.api_key = 'sk_test_51Iol8qCmTDZ03Uhzn5mWvKYunDRj8z3kIJcVQPocwJ0576KrEcfj2nE0tOgVQSRu7PDkXg9KCdMgB7GBbl1yDNxv0075rHzz5f'
+    stripe.api_key = settings.STRIPE_SECRET_KEY
     intent = stripe.PaymentIntent.create(
         amount=total,
         currency='gbp',
         metadata={'userid': request.user.id}
     )
 
-    return render(request, 'payment/home.html', {'client_secret': intent.client_secret})
+    return render(request, 'payment/payment_form.html', {'client_secret': intent.client_secret,
+                                                         'STRIPE_PUBLISHABLE_KEY': os.environ.get('STRIPE_PUBLISHABLE_KEY')})
 
 
 @csrf_exempt
